@@ -71,7 +71,7 @@ uint8_t I2C_lastReceive() {
 	
 	return TWDR;
 }
-/*
+
 ISR(TWI_vect) {
 	uint8_t status = TWSR;
 	switch (status) {
@@ -99,4 +99,4 @@ ISR(TWI_vect) {
 		
 	}
 }
-*/
+
