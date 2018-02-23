@@ -2,8 +2,8 @@
 
 volatile uint8_t tranCount;
 volatile uint8_t recCount;
-volatile uint8_t SLAVE_RecBuffer[32];
-volatile uint8_t SLAVE_TranBuffer[32];
+volatile uint8_t SLAVE_RecBuffer[I2CSLAVEBUFFER];
+volatile uint8_t SLAVE_TranBuffer[I2CSLAVEBUFFER];
 
 void I2C_master_init() {
 	TWSR = 0x00;
