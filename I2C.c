@@ -76,25 +76,27 @@ ISR(TWI_vect) {
 	uint8_t status = TWSR;
 	switch (status) {
 		case SLAVE_REC_ADDRESS_MATCH:	TWCR |= (1 << TWINT) | (1 << TWEA);
-										recCount = 97;
-										break;
+																	recCount = 0;
+																	break;
 		case SLAVE_REC_DATA_ACK:
-		case SLAVE_REC_DATA_NACK:		SLAVE_RecBuffer[recCount++] = TWDR;
-										TWCR |= (1 << TWINT) | (1 << TWEA);
-										break;
-		case SLAVE_REC_STOP:			TWCR |= (1 << TWINT) | (1 << TWEA);
-										break;
+		case SLAVE_REC_DATA_NACK:	if (recCount < I2CSLAVEBUFFER) {		
+																SLAVE_RecBuffer[recCount++] = TWDR;
+																TWCR |= (1 << TWINT) | (1 << TWEA);
+															}
+															break;
+		case SLAVE_REC_STOP:	TWCR |= (1 << TWINT) | (1 << TWEA);
+													break;
 	
 		case SLAVE_TRS_ADDRESS_MATCH:	tranCount = 0;
-										TWDR = SLAVE_TranBuffer[tranCount++];
-										TWCR |= (1 << TWINT) | (1 << TWEA);
-										break;
-		case SLAVE_TRS_DATA_ACK:		TWDR = SLAVE_TranBuffer[tranCount++];
-										TWCR |= (1 << TWINT) | (1 << TWEA);
-										break;
+																	TWDR = SLAVE_TranBuffer[tranCount++];
+																	TWCR |= (1 << TWINT) | (1 << TWEA);
+																	break;
+		case SLAVE_TRS_DATA_ACK:	TWDR = SLAVE_TranBuffer[tranCount++];
+															TWCR |= (1 << TWINT) | (1 << TWEA);
+															break;
 		case SLAVE_TRS_DATA_NACK:
-		case SLAVE_TRS_LAST:		 	TWCR |= (1 << TWINT) | (1 << TWEA);
-										break;
+		case SLAVE_TRS_LAST:	TWCR |= (1 << TWINT) | (1 << TWEA);
+													break;
 		default: break;
 		
 	}
