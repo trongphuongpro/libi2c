@@ -10,6 +10,7 @@
 #endif
 
 #define SLAVE   1
+#define I2CSLAVEBUFFER	32
 // common funtions
 void I2C_master_init();
 void I2C_slave_init();
