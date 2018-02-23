@@ -86,6 +86,7 @@ ISR(TWI_vect) {
 															}
 															break;
 		case SLAVE_REC_STOP:	TWCR |= (1 << TWINT) | (1 << TWEA);
+													I2Cstate = 1;
 													break;
 	
 		case SLAVE_TRS_ADDRESS_MATCH:	tranCount = 0;
