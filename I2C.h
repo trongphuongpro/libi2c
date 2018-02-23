@@ -9,7 +9,6 @@
 	#define cbi(port, bit)	(port) &= ~(1 << bit)
 #endif
 
-#define SLAVE   1
 #define I2CSLAVEBUFFER	32
 // common funtions
 void I2C_master_init();
@@ -37,7 +36,7 @@ extern volatile uint8_t tranCount;
 extern volatile uint8_t recCount;
 extern volatile uint8_t SLAVE_RecBuffer[];
 extern volatile uint8_t SLAVE_TranBuffer[];
-
+extern volatile uint8_t I2Cstate;
 // STATUS CODE FOR MASTER USE
 
 #define _100KHz			32
